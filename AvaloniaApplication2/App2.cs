@@ -1,6 +1,16 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Markup.Xaml;
+using Avalonia.Styling;
+using Avalonia.Themes.Simple;
+using B;
+using B.Ux;
+using System.Threading.Tasks;
+
+using Avalonia;
+using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
@@ -21,7 +31,7 @@ using B.Ux;
 
 namespace AvaloniaApplication2;
 
-public partial class App : Application
+public class App2 : Application
 {
     public override void Initialize()
     {
@@ -48,7 +58,7 @@ public partial class App : Application
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.MainWindow = new Window() { Content = mv };
- 
+
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
@@ -79,6 +89,4 @@ public partial class App : Application
             $"hello {i++}".Log();
         });
     }
-
-
 }
