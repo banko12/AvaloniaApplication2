@@ -15,7 +15,9 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="B.NA.App" />
+    <PackageReference Include="B.NA.Plot2D" />
     <PackageReference Include="B.NA.Ux3" />
+    <PackageReference Include="B.NN.Math" />
     <PackageReference Include="CommunityToolkit.Mvvm" />
   </ItemGroup>
 </Project>

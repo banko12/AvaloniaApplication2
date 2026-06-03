@@ -3,10 +3,11 @@ using B;
 using B.NA.App.Facade;
 using B.NA.Ux3;
 using B.NA.Ux3.Facade;
+using B.Plots;
 using B.Ux;
 using System.Threading.Tasks;
-
 using static B.ShortColours;
+using static B.ShortMath;
 
 namespace AvaloniaApplication2;
 
@@ -28,8 +29,19 @@ static class AppUi
 
             $"hello copytext {k++}".LogCopytext("copy text");
         });
+
+        ui.Btn("Quick").AddTo(sp).WithClick(() =>
+        {
+            linspace(0, pi2).Apply(sin).Plot().Log();
+        });
+
+        ui.Btn("Multiple lines").AddTo(sp).WithClick(() =>
+        {
+            linspace(0, pi2).Apply(sin).Plot(purple).Ref(out var p).Log();
+            linspace(0, pi2).Apply(cos).AddLine(p, red);
+            linspace(0, pi2).Apply(x => cos(3 * x)).AddScatter(p, purple);
+        });
+
     }
-
-
 
 }
