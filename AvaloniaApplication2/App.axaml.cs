@@ -1,14 +1,23 @@
 using Avalonia;
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Avalonia.Themes.Simple;
-using AvaloniaApplication2.ViewModels;
-using AvaloniaApplication2.Views;
+using B;
 using B.Ux;
 using System.Linq;
+using System.Threading.Tasks;
+
+
+
+using B;
+
+using B.NA.App.Facade;
+using B.NA.Ux3.Facade;
+using B.Ux;
 
 namespace AvaloniaApplication2;
 
@@ -19,7 +28,7 @@ public partial class App : Application
 
 
 
-        AvaloniaXamlLoader.Load(this);
+      //  AvaloniaXamlLoader.Load(this);
 
         PropsAvalonia.Init();
         var theme = new SimpleTheme();
@@ -33,25 +42,43 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+
+        var mv = new ContentControl();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            desktop.MainWindow = new MainWindow
-            {
-                DataContext = new MainViewModel()
-            };
-        }
-        else if (ApplicationLifetime is IActivityApplicationLifetime singleViewFactoryApplicationLifetime)
-        {
-            singleViewFactoryApplicationLifetime.MainViewFactory = () => new MainView { DataContext = new MainViewModel() };
+            desktop.MainWindow = new Window() { Content = mv };
+ 
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            singleViewPlatform.MainView = new MainView
-            {
-                DataContext = new MainViewModel()
-            };
+            //this is the web  lifetime
+
+            singleViewPlatform.MainView = mv;
+
+
         }
+
+        BuildUi(mv);
+
 
         base.OnFrameworkInitializationCompleted();
     }
+
+
+    public async Task BuildUi(ContentControl container)
+    {
+        var dp = new DockPanel();
+        container.Content = dp;
+
+        var sp = uin.StackPanel(width: 180).AddRight(dp);
+        ui.LoggerWithCopyAndClear().SetGlobalLogger().AddTo(dp);
+        int i = 0;
+        ui.Btn("Run").AddTo(sp).WithClickEx(async () =>
+        {
+            $"hello {i++}".Log();
+        });
+    }
+
+
 }
