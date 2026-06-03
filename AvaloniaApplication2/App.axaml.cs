@@ -1,23 +1,14 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
-using Avalonia.Data.Core;
-using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.Styling;
 using Avalonia.Themes.Simple;
 using B;
-using B.Ux;
-using System.Linq;
-using System.Threading.Tasks;
-
-
-
-using B;
-
 using B.NA.App.Facade;
 using B.NA.Ux3.Facade;
 using B.Ux;
+using System.Threading.Tasks;
 
 namespace AvaloniaApplication2;
 
