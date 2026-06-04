@@ -18,6 +18,7 @@
     <PackageVersion Include="B.NA.Plot2D" Version="10.0.42" />
     <PackageVersion Include="B.NA.Ux3" Version="10.0.42" />
     <PackageVersion Include="B.NN.Math" Version="10.0.2" />
+    <PackageVersion Include="BlazorSerial" Version="1.0.3.1" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageVersion Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.2.0.2" />
   </ItemGroup>
