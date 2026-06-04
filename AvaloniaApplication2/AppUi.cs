@@ -42,14 +42,67 @@ static class AppUi
             linspace(0, pi2).Apply(x => cos(3 * x)).AddScatter(p, purple);
         });
 
+        Ui.LabelCenter("BleuIO Serial").GapTop(20).AddTo(sp);
 
-        ui.Btn("Run").AddTo(sp).WithClickEx(async () =>
+
+        Task readLoop;
+
+        WebSerial.Current.DataReceived += s =>
+        {
+            $"{s}".Log();
+        };
+       
+
+        ui.Btn("Open port").AddTo(sp).WithClickEx(async () =>
         {
             var x =await WebSerial.Current.OpenAsync(9600);
-            
-            
-            x.Log("Opened port:");
+
+            if (x)
+            {
+                "Port opened successfully".Log(green);
+
+            }
+            else
+            {
+                "Failed to open port".Log(red);
+                return;
+            }
+
+
+            "starting read loop".Log(gray);
+
+            //this doesn't return until the port is closed,
+            //so we can log before and after to show that it's working as expected
+            readLoop = WebSerial.Current.StartReadLoopAsync();
+
+           // "read loop started".Log(green);
+
+
+
+        });
+
+        ui.Btn("Close port").AddTo(sp).WithClickEx(async () =>
+        {
+            await WebSerial.Current.CloseAsync();
+            "Closed port".Log(gray);
+        });
+
+
+
+        ui.LineEntry().AddTo(sp).WithAction(async x => {
+
+            var y = x.TrimEnd('\n', ' ');
+            y+= "\n";
+
+            await WebSerial.Current.WriteAsync(y);
+        });
+
+        ui.Btn("Send ATI").AddTo(sp).WithClickEx(async () =>
+        {
+            await WebSerial.Current.WriteAsync("ATI\n");
+            "written".Log(gray);
         });
     }
 
+   
 }
