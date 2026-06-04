@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices.JavaScript;
 using System.Threading.Tasks;
 
@@ -6,10 +7,16 @@ namespace BH.Experimental.WebSerial;
 
 public static partial class WebSerialInterop
 {
+    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(WebSerialInterop))]
+    static WebSerialInterop()
+    {
+        
+    }
+
     // 1. Tell .NET to dynamically fetch and cache your separate JS module file
     public static Task InitializeAsync()
     {
-        return JSHost.ImportAsync("WebSerialModule", "./webSerial.js");
+        return JSHost.ImportAsync("WebSerialModule", "/webSerial.js");
     }
 
     // 2. Import methods mapping strictly to the "WebSerialModule" identifier

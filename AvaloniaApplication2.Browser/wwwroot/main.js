@@ -10,4 +10,18 @@ const dotnetRuntime = await dotnet
 
 const config = dotnetRuntime.getConfig();
 
+//get the exports from the main assembly, which includes our WebSerialInterop class and its methods
+const exports = await dotnetRuntime.getAssemblyExports(config.mainAssemblyName); 
+
+// Bind it to globalThis using the clean, single-word variable
+globalThis.DotNetSerialListener = {
+    receiveBytes: (byteArray) =>
+                    exports
+                    .BH.Experimental.WebSerial  //the namespace where our WebSerialInterop class lives
+                    .WebSerialInterop
+                    .ReceiveBytes(byteArray)
+};
+
+
+
 await dotnetRuntime.runMain(config.mainAssemblyName, [globalThis.location.href]);

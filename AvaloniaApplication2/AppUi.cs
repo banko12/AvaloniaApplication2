@@ -42,6 +42,14 @@ static class AppUi
             linspace(0, pi2).Apply(x => cos(3 * x)).AddScatter(p, purple);
         });
 
+
+        ui.Btn("Run").AddTo(sp).WithClickEx(async () =>
+        {
+            var x =await WebSerial.Current.OpenAsync(9600);
+            
+            
+            x.Log("Opened port:");
+        });
     }
 
 }

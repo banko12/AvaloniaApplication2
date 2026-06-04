@@ -1,7 +1,5 @@
 <Solution>
-  <Project Path="AvaloniaApplication2.Android/AvaloniaApplication2.Android.csproj" />
   <Project Path="AvaloniaApplication2.Browser/AvaloniaApplication2.Browser.csproj" />
   <Project Path="AvaloniaApplication2.Desktop/AvaloniaApplication2.Desktop.csproj" />
-  <Project Path="AvaloniaApplication2.iOS/AvaloniaApplication2.iOS.csproj" />
   <Project Path="AvaloniaApplication2/AvaloniaApplication2.csproj" />
 </Solution>
