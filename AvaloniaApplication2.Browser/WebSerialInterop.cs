@@ -16,7 +16,11 @@ public static partial class WebSerialInterop
     // 1. Tell .NET to dynamically fetch and cache your separate JS module file
     public static Task InitializeAsync()
     {
-        return JSHost.ImportAsync("WebSerialModule", "/webSerial.js");
+        // dotnet.js lives in ".../<app>/_framework/..."
+        // so "../webSerial.js" resolves to ".../<app>/webSerial.js" (works on GitHub Pages subpath too)
+        return JSHost.ImportAsync("WebSerialModule", "../webSerial.js");
+
+       // return JSHost.ImportAsync("WebSerialModule", "/webSerial.js");
     }
 
     // 2. Import methods mapping strictly to the "WebSerialModule" identifier
