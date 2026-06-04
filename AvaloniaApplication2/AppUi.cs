@@ -55,7 +55,7 @@ static class AppUi
 
         ui.Btn("Open port").AddTo(sp).WithClickEx(async () =>
         {
-            var x =await WebSerial.Current.OpenAsync(9600);
+            var x =await WebSerial.Current.OpenAsync(115200);
 
             if (x)
             {
