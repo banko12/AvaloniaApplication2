@@ -7,11 +7,11 @@ namespace BH.Experimental.WebSerial;
 
 public static partial class WebSerialInterop
 {
-    [DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(WebSerialInterop))]
-    static WebSerialInterop()
-    {
+    //[DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(WebSerialInterop))]
+    //static WebSerialInterop()
+    //{
         
-    }
+    //}
 
     // 1. Tell .NET to dynamically fetch and cache your separate JS module file
     public static Task InitializeAsync()
