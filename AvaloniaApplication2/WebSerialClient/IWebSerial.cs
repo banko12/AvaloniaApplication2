@@ -6,11 +6,20 @@ namespace AvaloniaApplication2;
 public interface IWebSerial
 {
     bool IsSupported { get; }
-    event Action<string>? DataReceived;
 
     ValueTask InitializeAsync();
     Task<bool> OpenAsync(int baudRate);
-    //Task StartReadLoopAsync();
-    Task WriteBufferAsync(byte[] buffer);
+
     Task CloseAsync();
+
+    /// <summary>
+    /// The sending: write bytes
+    /// </summary>
+    /// <param name="buffer"></param>
+    /// <returns></returns>
+    Task WriteAsync(byte[] buffer);
+
+    //the receiving: an event that fires when data is received from the serial port.
+    event Action<string>? DataReceived;
+
 }
