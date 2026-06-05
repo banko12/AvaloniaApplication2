@@ -21,9 +21,6 @@ public static partial class WebSerialInterop
     [JSImport("openSerialPort", "WebSerialModule")]
     public static partial Task<bool> OpenSerialPortAsync(int baudRate);
 
-    //[JSImport("writeSerialData", "WebSerialModule")]
-    //public static partial Task WriteSerialDataAsync(string data);
-
 
     [JSImport("writeBuffer", "WebSerialModule")]
     public static partial Task WriteBufferAsync(byte[] buffer);

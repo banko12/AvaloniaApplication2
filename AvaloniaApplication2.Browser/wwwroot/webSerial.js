@@ -32,16 +32,6 @@ export async function writeBuffer(buffer) {
 }
 
 
-// // Writes text data out to the selected COM port
-// export async function writeSerialData(textData) {
-//     if (!serialPort || !serialPort.writable) return;
-
-//     const writer = serialPort.writable.getWriter();
-//     const encoder = new TextEncoder();
-//     await writer.write(encoder.encode(textData));
-//     writer.releaseLock();
-// }
-
 // Begins an asynchronous read loop, passing bytes back to C#
 export async function startReadLoop() {
     if (!serialPort || !serialPort.readable) return;
