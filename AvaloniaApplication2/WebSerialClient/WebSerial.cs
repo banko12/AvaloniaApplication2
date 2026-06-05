@@ -25,8 +25,8 @@ public static class WebSerial
         public Task StartReadLoopAsync() => Task.FromException(
             new PlatformNotSupportedException("WebSerial is only available in the Browser (WASM) build."));
 
-        public Task WriteAsync(string data) => Task.FromException(
-            new PlatformNotSupportedException("WebSerial is only available in the Browser (WASM) build."));
+        //public Task WriteAsync(string data) => Task.FromException(
+        //    new PlatformNotSupportedException("WebSerial is only available in the Browser (WASM) build."));
 
         public Task WriteBufferAsync(byte[] buffer) => Task.FromException(
             new PlatformNotSupportedException("WebSerial is only available in the Browser (WASM) build."));

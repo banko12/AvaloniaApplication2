@@ -45,11 +45,11 @@ internal sealed class BrowserWebSerial : IWebSerial
         await WebSerialInterop.StartReadLoopAsync();
     }
 
-    public async Task WriteAsync(string data)
-    {
-        await EnsureInitializedAsync();
-        await WebSerialInterop.WriteSerialDataAsync(data);
-    }
+    //public async Task WriteAsync(string data)
+    //{
+    //    await EnsureInitializedAsync();
+    //    await WebSerialInterop.WriteSerialDataAsync(data);
+    //}
 
     public async Task WriteBufferAsync(byte[] buffer)
     {
