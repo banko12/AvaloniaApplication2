@@ -36,14 +36,21 @@ internal sealed class BrowserWebSerial : IWebSerial
     public async Task<bool> OpenAsync(int baudRate)
     {
         await EnsureInitializedAsync();
-        return await WebSerialInterop.OpenSerialPortAsync(baudRate);
+        var b =  await WebSerialInterop.OpenSerialPortAsync(baudRate);
+        if(!b)  return false;
+
+        //this is async, but it doesn't complete until the port is closed,
+        //so it must be fire and forget
+        WebSerialInterop.StartReadLoopAsync();
+        return true;
+
     }
 
-    public async Task StartReadLoopAsync()
-    {
-        await EnsureInitializedAsync();
-        await WebSerialInterop.StartReadLoopAsync();
-    }
+    //public async Task StartReadLoopAsync()
+    //{
+    //    await EnsureInitializedAsync();
+    //    await WebSerialInterop.StartReadLoopAsync();
+    //}
 
     public async Task WriteBufferAsync(byte[] buffer)
     {

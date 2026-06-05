@@ -66,12 +66,12 @@ static class AppUi
                 return;
             }
 
-            "Starting read loop..".Log(gray);
+           // "Starting read loop..".Log(gray);
 
             //this task doesn't return until the port is closed, so we fire and forget it.
             //Strictly speaking, we don't need to assign it to a variable, but this way we can check 
             //if the port is still open. Closing the port completes the task.
-            readLoopTask = WebSerial.Current.StartReadLoopAsync();
+           // readLoopTask = WebSerial.Current.StartReadLoopAsync();
         });
 
         ui.Btn("Close port").AddTo(sp).WithClickEx(async () =>

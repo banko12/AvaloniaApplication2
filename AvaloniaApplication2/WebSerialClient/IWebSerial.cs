@@ -10,7 +10,7 @@ public interface IWebSerial
 
     ValueTask InitializeAsync();
     Task<bool> OpenAsync(int baudRate);
-    Task StartReadLoopAsync();
+    //Task StartReadLoopAsync();
     Task WriteBufferAsync(byte[] buffer);
     Task CloseAsync();
 }
