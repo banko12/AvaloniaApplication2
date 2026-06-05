@@ -15,14 +15,14 @@ internal sealed class BrowserWebSerial : IWebSerial
 
     public bool IsSupported => true;
 
-    public event Action<string>? DataReceived;
+    public event Action<byte[]>? DataReceived;
 
     public BrowserWebSerial()
     {
         WebSerialInterop.OnDataReceived += OnInteropDataReceived;
     }
 
-    void OnInteropDataReceived(string text) => DataReceived?.Invoke(text);
+    void OnInteropDataReceived(byte[] data) => DataReceived?.Invoke(data);
 
     async ValueTask EnsureInitializedAsync()
     {

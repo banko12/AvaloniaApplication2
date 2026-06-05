@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static B.ShortColours;
 using static B.ShortMath;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AvaloniaApplication2;
 
@@ -46,9 +47,10 @@ static class AppUi
 
         Task readLoopTask;
 
-        WebSerial.Current.DataReceived += s =>
+        WebSerial.Current.DataReceived += bytes =>
         {
-            $"{s}".Log();
+            string textChunk = System.Text.Encoding.UTF8.GetString(bytes);
+            $"{textChunk}".Log();
         };
        
 

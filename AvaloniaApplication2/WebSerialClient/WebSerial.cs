@@ -15,7 +15,7 @@ public static class WebSerial
     private sealed class NotSupportedWebSerial : IWebSerial
     {
         public bool IsSupported => false;
-        public event Action<string>? DataReceived { add { } remove { } }
+        public event Action<byte[]>? DataReceived { add { } remove { } }
 
         public ValueTask InitializeAsync() => ValueTask.CompletedTask;
 

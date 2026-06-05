@@ -36,9 +36,11 @@ public static partial class WebSerialInterop
     [JSExport]
     public static void ReceiveBytes(byte[] data)
     {
-        string textChunk = System.Text.Encoding.UTF8.GetString(data);
-        OnDataReceived?.Invoke(textChunk);
+       // string textChunk = System.Text.Encoding.UTF8.GetString(data);
+       // OnDataReceived?.Invoke(textChunk);
+
+        OnDataReceived?.Invoke(data);
     }
 
-    public static event Action<string>? OnDataReceived;
+    public static event Action<byte[]>? OnDataReceived;
 }

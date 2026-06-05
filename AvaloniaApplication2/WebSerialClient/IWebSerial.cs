@@ -20,6 +20,6 @@ public interface IWebSerial
     Task WriteAsync(byte[] buffer);
 
     //the receiving: an event that fires when data is received from the serial port.
-    event Action<string>? DataReceived;
+    event Action<byte[]>? DataReceived;
 
 }
