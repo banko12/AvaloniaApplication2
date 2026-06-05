@@ -23,23 +23,23 @@ public abstract class WasmApp : Application
     public override void OnFrameworkInitializationCompleted()
     {
         //create a content control that will hold our UI
-        var mv = new ContentControl();
+        var root = new ContentControl();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             //if we are inside a desktop lifetime, create a window and set its root to our content control
-            desktop.MainWindow = new Window() { Content = mv };
+            desktop.MainWindow = new Window() { Content = root };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
             //if we are inside a single view lifetime (WASM), set the main view to our content control
-            singleViewPlatform.MainView = mv;
+            singleViewPlatform.MainView = root;
         }
 
         base.OnFrameworkInitializationCompleted();
 
         //BuildUi asynchronous. We fire and forget it.
-        BuildUi(mv);
+        BuildUi(root);
 
     }
 
