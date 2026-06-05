@@ -14,6 +14,24 @@ export async function openSerialPort(baudRate) {
     }
 }
 
+/**
+ * Writes a byte buffer out to the selected COM port.
+ * @param {ArrayLike<number> | Uint8Array | number[]} buffer Byte values 0..255
+ */
+export async function writeBuffer(buffer) {
+    if (!serialPort || !serialPort.writable) return;
+
+    const writer = serialPort.writable.getWriter();
+    try {
+        // Accept Uint8Array directly, otherwise convert common JS shapes (number[], ArrayLike)
+        const bytes = buffer instanceof Uint8Array ? buffer : Uint8Array.from(buffer);
+        await writer.write(bytes);
+    } finally {
+        writer.releaseLock();
+    }
+}
+
+
 // Writes text data out to the selected COM port
 export async function writeSerialData(textData) {
     if (!serialPort || !serialPort.writable) return;

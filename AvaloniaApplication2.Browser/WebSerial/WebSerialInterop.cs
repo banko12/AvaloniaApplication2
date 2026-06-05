@@ -24,6 +24,11 @@ public static partial class WebSerialInterop
     [JSImport("writeSerialData", "WebSerialModule")]
     public static partial Task WriteSerialDataAsync(string data);
 
+
+    [JSImport("writeBuffer", "WebSerialModule")]
+    public static partial Task WriteBufferAsync(byte[] buffer);
+
+
     [JSImport("startReadLoop", "WebSerialModule")]
     public static partial Task StartReadLoopAsync();
 

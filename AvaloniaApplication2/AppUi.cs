@@ -5,6 +5,7 @@ using B.NA.Ux3;
 using B.NA.Ux3.Facade;
 using B.Plots;
 using B.Ux;
+using System.Text;
 using System.Threading.Tasks;
 using static B.ShortColours;
 using static B.ShortMath;
@@ -90,6 +91,14 @@ static class AppUi
         ui.Btn("Send ATI").AddTo(sp).WithClickEx(async () =>
         {
             await WebSerial.Current.WriteAsync("ATI\n");
+            "written".Log(gray);
+        });
+
+        ui.Btn("Send ATI as bytes").AddTo(sp).WithClickEx(async () =>
+        {
+
+            var bytes = Encoding.UTF8.GetBytes("ATI\n");
+            await WebSerial.Current.WriteBufferAsync(bytes);
             "written".Log(gray);
         });
     }
