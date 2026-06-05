@@ -9,13 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using static B.ShortColours;
 using static B.ShortMath;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AvaloniaApplication2;
 
 static class AppUi
 {
-    //public const string AppName = "HidTerm";
     public static async Task Build(ContentControl cc)
     {
         cc.WithDisposeManager(out var dm);
@@ -45,18 +43,15 @@ static class AppUi
 
         Ui.LabelCenter("BleuIO Serial").GapTop(20).AddTo(sp);
 
-        Task readLoopTask;
-
         WebSerial.Current.DataReceived += bytes =>
         {
-            string textChunk = System.Text.Encoding.UTF8.GetString(bytes);
+            string textChunk = Encoding.UTF8.GetString(bytes);
             $"{textChunk}".Log();
         };
-       
 
         ui.Btn("Open port").AddTo(sp).WithClickEx(async () =>
         {
-            var x =await WebSerial.Current.OpenAsync(115200);
+            var x = await WebSerial.Current.OpenAsync(115200);
 
             if (x)
             {
@@ -67,13 +62,6 @@ static class AppUi
                 "Failed to open port".Log(red);
                 return;
             }
-
-           // "Starting read loop..".Log(gray);
-
-            //this task doesn't return until the port is closed, so we fire and forget it.
-            //Strictly speaking, we don't need to assign it to a variable, but this way we can check 
-            //if the port is still open. Closing the port completes the task.
-           // readLoopTask = WebSerial.Current.StartReadLoopAsync();
         });
 
         ui.Btn("Close port").AddTo(sp).WithClickEx(async () =>
@@ -82,11 +70,9 @@ static class AppUi
             "Port closed".Log(gray);
         });
 
-        ui.LineEntry().AddTo(sp).WithAction(async x => {
-
-            var y = x.TrimEnd('\n', ' ');
-            y+= "\n";
-
+        ui.LineEntry().AddTo(sp).WithAction(async x =>
+        {
+            var y = x.TrimEnd('\n', ' ') + "\n";
             var bytes = Encoding.UTF8.GetBytes(y);
             await WebSerial.Current.WriteAsync(bytes);
         });
@@ -95,8 +81,6 @@ static class AppUi
         {
             var bytes = Encoding.UTF8.GetBytes("ATI\n");
             await WebSerial.Current.WriteAsync(bytes);
-            "written".Log(gray);
         });
     }
-
 }

@@ -9,14 +9,10 @@ public interface IWebSerial
 
     ValueTask InitializeAsync();
     Task<bool> OpenAsync(int baudRate);
-
     Task CloseAsync();
-
     /// <summary>
     /// The sending: write bytes
     /// </summary>
-    /// <param name="buffer"></param>
-    /// <returns></returns>
     Task WriteAsync(byte[] buffer);
 
     //the receiving: an event that fires when data is received from the serial port.
