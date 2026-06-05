@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Avalonia" />
-    <!--<PackageReference Include="Avalonia.Themes.Fluent" />-->
     <PackageReference Include="Avalonia.Fonts.Inter" />
     <PackageReference Include="AvaloniaUI.DiagnosticsSupport">
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
@@ -18,6 +17,5 @@
     <PackageReference Include="B.NA.Plot2D" />
     <PackageReference Include="B.NA.Ux3" />
     <PackageReference Include="B.NN.Math" />
-    <!--<PackageReference Include="CommunityToolkit.Mvvm" />-->
   </ItemGroup>
 </Project>

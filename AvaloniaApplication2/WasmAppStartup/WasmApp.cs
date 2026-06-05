@@ -22,23 +22,32 @@ public abstract class WasmApp : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        //create a content control that will hold our UI
         var mv = new ContentControl();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+            //if we are inside a desktop lifetime, create a window and set its root to our content control
             desktop.MainWindow = new Window() { Content = mv };
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            //this is the web  lifetime
+            //if we are inside a single view lifetime (WASM), set the main view to our content control
             singleViewPlatform.MainView = mv;
         }
 
+        base.OnFrameworkInitializationCompleted();
+
+        //BuildUi asynchronous. We fire and forget it.
         BuildUi(mv);
 
-        base.OnFrameworkInitializationCompleted();
     }
 
+    /// <summary>
+    /// The abstract method that derived classes must implement to build the UI. 
+    /// </summary>
+    /// <param name="container">The ContentControl that will hold the app's UI.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public abstract Task BuildUi(ContentControl container);
 
 }

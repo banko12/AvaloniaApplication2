@@ -13,7 +13,7 @@ namespace AvaloniaApplication2;
 
 static class AppUi
 {
-    public const string AppName = "HidTerm";
+    //public const string AppName = "HidTerm";
     public static async Task Build(ContentControl cc)
     {
         cc.WithDisposeManager(out var dm);
@@ -26,7 +26,6 @@ static class AppUi
         ui.Btn("Run").AddTo(sp).WithClickEx(async () =>
         {
             $"hello {k++}".Log(blue);
-
             $"hello copytext {k++}".LogCopytext("copy text");
         });
 
@@ -44,8 +43,7 @@ static class AppUi
 
         Ui.LabelCenter("BleuIO Serial").GapTop(20).AddTo(sp);
 
-
-        Task readLoop;
+        Task readLoopTask;
 
         WebSerial.Current.DataReceived += s =>
         {
@@ -60,7 +58,6 @@ static class AppUi
             if (x)
             {
                 "Port opened successfully".Log(green);
-
             }
             else
             {
@@ -68,26 +65,19 @@ static class AppUi
                 return;
             }
 
+            "Starting read loop..".Log(gray);
 
-            "starting read loop".Log(gray);
-
-            //this doesn't return until the port is closed,
-            //so we can log before and after to show that it's working as expected
-            readLoop = WebSerial.Current.StartReadLoopAsync();
-
-           // "read loop started".Log(green);
-
-
-
+            //this task doesn't return until the port is closed, so we fire and forget it.
+            //Strictly speaking, we don't need to assign it to a variable, but this way we can check 
+            //if the port is still open. Closing the port completes the task.
+            readLoopTask = WebSerial.Current.StartReadLoopAsync();
         });
 
         ui.Btn("Close port").AddTo(sp).WithClickEx(async () =>
         {
             await WebSerial.Current.CloseAsync();
-            "Closed port".Log(gray);
+            "Port closed".Log(gray);
         });
-
-
 
         ui.LineEntry().AddTo(sp).WithAction(async x => {
 
@@ -104,5 +94,4 @@ static class AppUi
         });
     }
 
-   
 }

@@ -1,26 +1,20 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices.JavaScript;
 using System.Threading.Tasks;
 
 namespace BH.Experimental.WebSerial;
-
+/// <summary>
+/// This class works together with the "webSerial.js" module
+/// to create a C# interop layer for the Web Serial API 
+/// </summary>
 public static partial class WebSerialInterop
 {
-    //[DynamicDependency(DynamicallyAccessedMemberTypes.All, typeof(WebSerialInterop))]
-    //static WebSerialInterop()
-    //{
-        
-    //}
-
     // 1. Tell .NET to dynamically fetch and cache your separate JS module file
     public static Task InitializeAsync()
     {
         // dotnet.js lives in ".../<app>/_framework/..."
         // so "../webSerial.js" resolves to ".../<app>/webSerial.js" (works on GitHub Pages subpath too)
         return JSHost.ImportAsync("WebSerialModule", "../webSerial.js");
-
-       // return JSHost.ImportAsync("WebSerialModule", "/webSerial.js");
     }
 
     // 2. Import methods mapping strictly to the "WebSerialModule" identifier
@@ -41,8 +35,6 @@ public static partial class WebSerialInterop
     public static void ReceiveBytes(byte[] data)
     {
         string textChunk = System.Text.Encoding.UTF8.GetString(data);
-
-        // Broadcast this string to your Avalonia ViewModels / UI
         OnDataReceived?.Invoke(textChunk);
     }
 

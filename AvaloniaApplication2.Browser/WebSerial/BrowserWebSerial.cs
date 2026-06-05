@@ -4,9 +4,14 @@ using System.Threading.Tasks;
 
 namespace BH.Experimental.WebSerial;
 
+/// <summary>
+/// In order to pass the WebSerial API to the app , we define the IWebSerial interface 
+/// and provide this implementation, which forwards to the WebSerialInterop static class. 
+/// At application start, we pass this IWebSerial implementation to the app.
+/// </summary>
 internal sealed class BrowserWebSerial : IWebSerial
 {
-    private bool _initialized;
+    private bool initialized;
 
     public bool IsSupported => true;
 
@@ -17,15 +22,13 @@ internal sealed class BrowserWebSerial : IWebSerial
         WebSerialInterop.OnDataReceived += OnInteropDataReceived;
     }
 
-    private void OnInteropDataReceived(string text) => DataReceived?.Invoke(text);
+    void OnInteropDataReceived(string text) => DataReceived?.Invoke(text);
 
-    private async ValueTask EnsureInitializedAsync()
+    async ValueTask EnsureInitializedAsync()
     {
-        if (_initialized)
-            return;
-
+        if (initialized) return;
         await WebSerialInterop.InitializeAsync();
-        _initialized = true;
+        initialized = true;
     }
 
     public async ValueTask InitializeAsync() => await EnsureInitializedAsync();
