@@ -466,4 +466,3 @@ $RECYCLE.BIN/
 # Allow .nupkg files in folder_btk_nuget
 !folder_btk_nuget/**/*.nupkg
 
-publish-output
