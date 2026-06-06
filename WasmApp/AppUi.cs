@@ -45,7 +45,7 @@ static class AppUi
 
         WebSerial.Current.DataReceived += bytes =>
         {
-            string textChunk = Encoding.UTF8.GetString(bytes);
+            string textChunk = Encoding.ASCII.GetString(bytes);
             $"{textChunk}".Log();
         };
 
@@ -73,13 +73,13 @@ static class AppUi
         ui.LineEntry().AddTo(sp).WithAction(async x =>
         {
             var y = x.TrimEnd('\n', ' ') + "\r\n";
-            var bytes = Encoding.UTF8.GetBytes(y);
+            var bytes = Encoding.ASCII.GetBytes(y);
             await WebSerial.Current.WriteAsync(bytes);
         });
 
         ui.Btn("Send ATI").AddTo(sp).WithClickEx(async () =>
         {
-            var bytes = Encoding.UTF8.GetBytes("ATI\r\n");
+            var bytes = Encoding.ASCII.GetBytes("ATI\r\n");
             await WebSerial.Current.WriteAsync(bytes);
         });
     }
