@@ -5,10 +5,13 @@ using B.NA.Ux3;
 using B.NA.Ux3.Facade;
 using B.Plots;
 using B.Ux;
+using BHA.Terminal;
+using BtkApp;
 using System.Text;
 using System.Threading.Tasks;
 using static B.ShortColours;
 using static B.ShortMath;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AvaloniaApplication2;
 
@@ -20,7 +23,16 @@ static class AppUi
         var dp = new DockPanel { Background = white.Brush() }.PlaceInside(cc);
 
         var sp = uin.StackPanel(width: 180).AddRight(dp);
-        ui.LoggerWithCopyAndClear().SetGlobalLogger().AddTo(dp);
+        ui.LoggerWithCopyAndClear().Width(300).SetGlobalLogger().AddRight(dp);
+
+        var h = new Header("Terminal").WithShadow(0.15, 10).AddTo(dp);
+
+        var term = new Terminal().Margin(5).PlaceInside(h)
+                        .WithHighlighter(Highlighter.Get())
+                        .ScheduleFocus();
+
+        term.Log(Data.Sample);
+
 
         int k = 0;
         ui.Btn("Run").AddTo(sp).WithClickEx(async () =>

@@ -20,6 +20,8 @@
 		<PackageReference Include="B.NA.Ux3" Version="10.0.42" />		
 		<PackageReference Include="B.NA.Plot2D" Version="10.0.42" />
 		<PackageReference Include="B.NN.Math" Version="10.0.2" />
+
+		<PackageReference Include="B.NA.Terminal" Version="10.0.31" />
 	</ItemGroup>
 	
 </Project>
