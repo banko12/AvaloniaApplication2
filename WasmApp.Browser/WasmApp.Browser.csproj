@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia.Browser" />
+    <PackageReference Include="Avalonia.Browser" Version="12.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AvaloniaApplication2\AvaloniaApplication2.csproj" />
+    <ProjectReference Include="..\WasmApp\WasmApp.csproj" />
   </ItemGroup>
 </Project>

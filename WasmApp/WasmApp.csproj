@@ -7,19 +7,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Avalonia" />
+		<PackageReference Include="Avalonia" Version="12.0.4" />
 		
-		<PackageReference Include="AvaloniaUI.DiagnosticsSupport">
+		<PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.2">
 			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
 			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
 		</PackageReference>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="B.NA.App" />
-		<PackageReference Include="B.NA.Ux3" />		
-		<PackageReference Include="B.NA.Plot2D" />
-		<PackageReference Include="B.NN.Math" />
+		<PackageReference Include="B.NA.App" Version="10.0.78" />
+		<PackageReference Include="B.NA.Ux3" Version="10.0.42" />		
+		<PackageReference Include="B.NA.Plot2D" Version="10.0.42" />
+		<PackageReference Include="B.NN.Math" Version="10.0.2" />
 	</ItemGroup>
 	
 </Project>
