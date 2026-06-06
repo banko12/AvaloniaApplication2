@@ -72,14 +72,14 @@ static class AppUi
 
         ui.LineEntry().AddTo(sp).WithAction(async x =>
         {
-            var y = x.TrimEnd('\n', ' ') + "\n";
+            var y = x.TrimEnd('\n', ' ') + "\r\n";
             var bytes = Encoding.UTF8.GetBytes(y);
             await WebSerial.Current.WriteAsync(bytes);
         });
 
         ui.Btn("Send ATI").AddTo(sp).WithClickEx(async () =>
         {
-            var bytes = Encoding.UTF8.GetBytes("ATI\n");
+            var bytes = Encoding.UTF8.GetBytes("ATI\r\n");
             await WebSerial.Current.WriteAsync(bytes);
         });
     }
