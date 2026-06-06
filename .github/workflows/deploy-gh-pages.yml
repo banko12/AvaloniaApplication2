@@ -30,7 +30,7 @@ jobs:
           dotnet-version: "10.0.x"
 
       - name: Publish (Browser)
-        run: dotnet publish ./WasmApp.Browser/WasmApp.Browser.csproj -c Release -o ./published
+        run: dotnet publish ./WasmApp.Browser/WasmApp.Browser.csproj -c Release -o ./published -p:WasmBuildNative=false
 
       # Add .nojekyll to prevent GitHub Pages from ignoring _framework folder
       - name: Add .nojekyll file
