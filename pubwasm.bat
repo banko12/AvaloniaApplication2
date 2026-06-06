@@ -1,0 +1,1 @@
+dotnet publish .\WasmApp.Browser\WasmApp.Browser.csproj -c Release -o .\publish-output
