@@ -30,7 +30,7 @@ jobs:
           dotnet-version: "10.0.x"
 
       - name: Publish (Browser)
-        run: dotnet publish ./AvaloniaApplication2.Browser/AvaloniaApplication2.Browser.csproj -c Release -o ./published
+        run: dotnet publish ./WasmApp.Browser/WasmApp.Browser.csproj -c Release -o ./published
 
       # SPA fallback for refresh/deep links on GitHub Pages
       - name: Add SPA fallback (404.html)

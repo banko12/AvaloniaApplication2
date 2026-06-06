@@ -452,3 +452,15 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+
+
+
+# Allow folder_btk_nuget and its contents
+!folder_btk_nuget/
+!folder_btk_nuget/**
+
+
+# Allow .nupkg files in folder_btk_nuget
+!folder_btk_nuget/**/*.nupkg
+
