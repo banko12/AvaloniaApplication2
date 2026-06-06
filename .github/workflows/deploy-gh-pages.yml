@@ -1,6 +1,5 @@
 name: Deploy Avalonia WASM to GitHub Pages
 
-
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
@@ -30,15 +29,18 @@ jobs:
           dotnet-version: "10.0.x"
 
       - name: Publish (Browser)
-        run: dotnet publish ./WasmApp.Browser/WasmApp.Browser.csproj -c Release -o ./published -p:WasmBuildNative=false
+        run: dotnet publish ./WasmApp.Browser/WasmApp.Browser.csproj -c Release -o ./published
 
       # Add .nojekyll to prevent GitHub Pages from ignoring _framework folder
       - name: Add .nojekyll file
         run: touch ./published/wwwroot/.nojekyll
 
-      # Update base href for GitHub Pages subdirectory
+      # Update base href - use a more reliable method
       - name: Update base href in index.html
-        run: sed -i 's|<head>|<head>\n    <base href="/AvaloniaApplication2/" />|' ./published/wwwroot/index.html
+        run: |
+          sed -i '/<head>/a\    <base href="/AvaloniaApplication2/" />' ./published/wwwroot/index.html
+          echo "--- Updated index.html ---"
+          cat ./published/wwwroot/index.html
 
       # SPA fallback for refresh/deep links on GitHub Pages
       - name: Add SPA fallback (404.html)
