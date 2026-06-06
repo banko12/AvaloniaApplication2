@@ -30,7 +30,7 @@ export async function writeBuffer(buffer) {
         const bytes = buffer instanceof Uint8Array ? buffer : Uint8Array.from(buffer);
 
         await writer.write(bytes);
-        console.log("Written bytes:", bytes);
+        //console.log("Written bytes:", bytes);
     } finally {
         writer.releaseLock();
     }
@@ -43,7 +43,7 @@ export async function startReadLoop() {
 
     keepReading = true;
 
-    console.log("Starting Web Serial read loop...");
+    //console.log("Starting Web Serial read loop...");
 
     try {
         while (serialPort.readable && keepReading) {
@@ -58,7 +58,7 @@ export async function startReadLoop() {
 
                     if (value) {
 
-                        console.log(value);
+                        //console.log(value);
                         // Pass raw bytes to the C# global listener exported by Avalonia
                         globalThis.DotNetSerialListener.receiveBytes(Array.from(value));
 
@@ -72,21 +72,6 @@ export async function startReadLoop() {
             } finally {
                 reader.releaseLock();
             }
-
-
-            // //await serialPort.setSignals({ dataTerminalReady: true });
-            // const { value, done } = await reader.read();
-            // if (done) break;
-
-            // //await serialPort.setSignals({ dataTerminalReady: false });
-            // console.log(value);
-
-            // if (value) {
-            //     // Pass raw bytes to the C# global listener exported by Avalonia
-            //     globalThis.DotNetSerialListener.receiveBytes(Array.from(value));
-
-                
-            // }
         }
     } catch (error) {
         console.error("Web Serial reading error:", error);
