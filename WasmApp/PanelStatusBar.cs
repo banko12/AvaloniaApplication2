@@ -8,6 +8,7 @@ using B.NA.App.Facade;
 
 using static B.ShortColours;
 using Avalonia.Layout;
+using System.Threading.Tasks;
 
 namespace BtkApp;
 
@@ -25,18 +26,22 @@ class PanelStatusBar : UiGroup<DockPanel>
             Width=70 
         });
 
-        Colour bdc = clear; // Colour.Gui1.Fade(0.5);
-
+        var bdc = clear.Brush();
+        var bdb = white.Brush(); // blue.Fade(0.95).Brush();
 
         StackPanel buttonGroup(string name)
         {
             var bd = new Border()
             {
-                BorderBrush = bdc.Brush(),
+                Background = bdb,
+                BorderBrush = bdc,
                 CornerRadius = new Avalonia.CornerRadius(5),
                 BorderThickness = new Avalonia.Thickness(0.7),
             }
-            .Margin(0).GapLeft(5).GapRight(5)
+            .WithShadow(opacity:0.15)
+            .Margin(10)
+            .GapTop(-5)
+           // .Margin(0).GapLeft(5).GapRight(5)
             .AddLeft(root);
             var sp = new StackPanel() { Orientation = Orientation.Horizontal }.PlaceInside(bd);
 
@@ -68,6 +73,10 @@ class PanelStatusBar : UiGroup<DockPanel>
         btn("Stop").WithTooltip("sends Ctrl+C").AddTo(sp).WithClickEx(async () =>
         {
            // "send Ctrl-C".Log();
+            await Sequences.SenCtrlC();
+            await Task.Delay(100);
+            await Sequences.SenCtrlC();
+            await Task.Delay(100);
             await Sequences.SenCtrlC();
         });
 

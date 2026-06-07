@@ -77,7 +77,7 @@ static class AppUi
             })
             .DisposedBy(dm);
 
-        var sp1 = Ui.StackPanel().PlaceInside(new Header("Port").AddTo(sp));
+        var sp1 = Ui.StackPanel().PlaceInside(new Header("Port").GapTop(-10).AddTo(sp));
         ui.Btn("Open").AddTo(sp1).WithClickEx(async () =>
         {
 
