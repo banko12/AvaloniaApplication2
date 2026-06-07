@@ -38,12 +38,19 @@ static class AppUi
         cc.WithDisposeManager(out var dm);
         var dp = new DockPanel { Background = white.Brush() }.PlaceInside(cc);
 
+        var statusPanelPlaceholder = new ContentControl().AddBottom(dp);
+
         var sp = uin.StackPanel(width: 180).AddRight(dp);
         ui.LoggerWithCopyAndClear().Width(300).SetGlobalLogger().AddRight(dp);
 
 
+  
+
+
         port = new BleuPort().DisposedBy(dm);
 
+
+        Sequences.SetApi(port);
         LogFunnel = new LogFunnel().DisposedBy(dm);
 
         panelDongleTerminal = new PanelDongleTerminal().AddTo(dp);
@@ -55,7 +62,22 @@ static class AppUi
             .Subscribe(x => panelDongleTerminal.Terminal.Log(x))
             .DisposedBy(dm);
 
-        ui.Btn("Open port").AddTo(sp).WithClickEx(async () =>
+        //hook up the dongle traffic to be rendered in the Dongle Terminal
+        port.IncomingLines.Merge(port.Outgoing)
+            .Subscribe(line => line.TLog())
+            .DisposedBy(dm);
+
+
+
+        panelDongleTerminal.Terminal.Lines
+            .Subscribe(async cmd =>
+            {
+                await port.Send(cmd);
+            })
+            .DisposedBy(dm);
+
+        var sp1 = Ui.StackPanel().PlaceInside(new Header("Port").AddTo(sp));
+        ui.Btn("Open").AddTo(sp1).WithClickEx(async () =>
         {
 
             var x = await port.Open();
@@ -78,36 +100,40 @@ static class AppUi
 
 
             }
+
+
+            panelDongleTerminal.Terminal.ScheduleFocus(afterMs: 100);
+
         });
 
-        ui.Btn("Close port").AddTo(sp).WithClickEx(async () =>
+        ui.Btn("Close").AddTo(sp1).WithClickEx(async () =>
         {
             await port.Close();
             "Port closed".TLogComment(); 
         });
 
 
+        Btn btn(string s) => ui.Btn(s).WithProps(new
+        {
+            CornerRadius = 3,
+            Width = 70
+        });
+
+        var sp2 = Ui.StackPanel().PlaceInside(new Header("Commands").AddTo(sp));
 
 
-        ui.Btn("Send ATI").AddTo(sp).WithClickEx(async () =>
+        btn("ATI").AddTo(sp2).WithClickEx(async () =>
         {
             await port.Send("ATI");
         });
 
 
-        //hook up the dongle traffic to be rendered in the Dongle Terminal
-        port.IncomingLines.Merge(port.Outgoing)
-            .Subscribe(line => line.TLog())
-            .DisposedBy(dm);
+
+        var statusBar = new PanelStatusBar().PlaceInside(statusPanelPlaceholder);
 
 
 
-        panelDongleTerminal.Terminal.Lines
-            .Subscribe(async cmd => 
-            {
-                await port.Send(cmd);
-            })
-            .DisposedBy(dm);
+
     }
 
 
