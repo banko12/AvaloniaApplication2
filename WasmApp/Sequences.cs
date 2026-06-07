@@ -146,5 +146,6 @@ static class Sequences
     public static async Task SenCtrlC()
     {
         await port.SendCtrlC();
+        await port.SendCtrlC();
     }
 }

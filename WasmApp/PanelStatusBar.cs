@@ -67,7 +67,7 @@ class PanelStatusBar : UiGroup<DockPanel>
 
         btn("Stop").WithTooltip("sends Ctrl+C").AddTo(sp).WithClickEx(async () =>
         {
-            "send Ctrl-C".Log();
+           // "send Ctrl-C".Log();
             await Sequences.SenCtrlC();
         });
 

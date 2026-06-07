@@ -41,7 +41,7 @@ static class AppUi
         var statusPanelPlaceholder = new ContentControl().AddBottom(dp);
 
         var sp = uin.StackPanel(width: 180).AddRight(dp);
-        ui.LoggerWithCopyAndClear().Width(300).SetGlobalLogger().AddRight(dp);
+       // ui.LoggerWithCopyAndClear().Width(300).SetGlobalLogger().AddRight(dp);
 
 
   
@@ -54,7 +54,8 @@ static class AppUi
         LogFunnel = new LogFunnel().DisposedBy(dm);
 
         panelDongleTerminal = new PanelDongleTerminal().AddTo(dp);
-        panelDongleTerminal.Terminal.Log(Data.Sample);
+
+      //  panelDongleTerminal.Terminal.Log(Data.Sample);
 
 
         LogFunnel.Observable
@@ -113,19 +114,19 @@ static class AppUi
         });
 
 
-        Btn btn(string s) => ui.Btn(s).WithProps(new
-        {
-            CornerRadius = 3,
-            Width = 70
-        });
+        //Btn btn(string s) => ui.Btn(s).WithProps(new
+        //{
+        //    CornerRadius = 3,
+        //    Width = 70
+        //});
 
-        var sp2 = Ui.StackPanel().PlaceInside(new Header("Commands").AddTo(sp));
+        //var sp2 = Ui.StackPanel().PlaceInside(new Header("Commands").AddTo(sp));
 
 
-        btn("ATI").AddTo(sp2).WithClickEx(async () =>
-        {
-            await port.Send("ATI");
-        });
+        //btn("ATI").AddTo(sp2).WithClickEx(async () =>
+        //{
+        //    await port.Send("ATI");
+        //});
 
 
 
