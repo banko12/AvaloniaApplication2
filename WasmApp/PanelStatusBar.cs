@@ -78,10 +78,10 @@ class PanelStatusBar : UiGroup<DockPanel>
         {
            // "send Ctrl-C".Log();
             await Sequences.SenCtrlC();
-            await Task.Delay(50);
-            await Sequences.SenCtrlC();
-            await Task.Delay(50);
-            await Sequences.SenCtrlC();
+            //await Task.Delay(50);
+            //await Sequences.SenCtrlC();
+            //await Task.Delay(50);
+            //await Sequences.SenCtrlC();
         });
 
 
