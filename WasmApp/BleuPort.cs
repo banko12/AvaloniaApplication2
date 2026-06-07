@@ -1,7 +1,9 @@
 ﻿using B;
+using B.Observables;
 using B.Ux;
 using System;
 using System.Diagnostics;
+using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Text;
@@ -10,13 +12,12 @@ using static B.ShortColours;
 
 namespace AvaloniaApplication2;
 
-sealed class BP:IDisposable
+sealed class BleuPort:IDisposable
 {
     private readonly DisposeManager disp;
     public void Dispose() => disp.Dispose();
 
     private readonly Subject<string> outgoing;
-
 
     private readonly Subject<string> incomingLines;
     public IObservable<string> IncomingLines => incomingLines;
@@ -28,14 +29,11 @@ sealed class BP:IDisposable
 
     private string buffer = "";  //this is our accumulator
 
-
-
-    public BP()
+    public BleuPort()
     {
         disp = new DisposeManager();
         outgoing = new Subject<string>().DisposedBy(disp);
         incomingLines = new Subject<string>().DisposedBy(disp);
-
 
         WebSerial.Current.DataReceived += OnDataReceived;
 
@@ -43,10 +41,7 @@ sealed class BP:IDisposable
         {
             WebSerial.Current.DataReceived -= OnDataReceived;
         });
-
-
     }
-
 
     public async Task Close()
     {
@@ -62,36 +57,13 @@ sealed class BP:IDisposable
 
     public async Task<bool> Open()
     {
-
         var x = await WebSerial.Current.OpenAsync(115200);
-
         return x;
-        //if (x)
-        //{
-        //    "Port opened successfully".Log(green);
-        //}
-        //else
-        //{
-        //    "Failed to open port".Log(red);
-        //    return;
-        //}
-
-
-
-       
-
-
-
-        //  port = new SerialPort(Port, Baud);
-        // port.DtrEnable = true;  //IMPORTANT: required since firmware version 2.6.0 
-        // port.Open();
-        // port.DataReceived += OnDataReceived;
     }
 
     void OnDataReceived(byte[] bytes)
     {
         string textChunk = Encoding.ASCII.GetString(bytes);
-        $"{textChunk}".Log();
         Accumulate(textChunk);
     }
 
@@ -141,7 +113,6 @@ sealed class BP:IDisposable
             bytes = [.. bytes, .. terminator];
 
             await WebSerial.Current.WriteAsync(bytes);
-            //port.Write(bytes, 0, bytes.Length);
         }
         catch (Exception ex)
         {
@@ -149,4 +120,44 @@ sealed class BP:IDisposable
         }
 
     }
+
+    private IObservable<string> GetResponses(string command) => GetResponses(() => Send(command));
+
+    public IObservable<string> GetResponses(Action initiator) => Observable.Create<string>(subscribe: observer =>
+    {
+        var d = Disposable.Empty;
+        try
+        {
+            d = IncomingLines.Subscribe(observer.OnNext);  //first, subscribe to the incoming line stream
+            initiator();                                   //execute the initiator that will produce the responses
+        }
+        catch (Exception ex)
+        {
+            observer.OnError(ex);
+        }
+
+        return Disposable.Create(() => d.Dispose());
+    });
+
+
+
+    public async Task<bool> Expect(string cmd, Func<string, bool> recognizer, int timeoutMs)
+    {
+        var r = await
+            GetResponses(cmd)
+            .Where(recognizer)
+            .Select(_ => true)
+            .ValueTimeout(timeoutMs: timeoutMs, timeoutValue: false);
+
+        await Task.Yield();  //yield for GUI 
+        return r;
+    }
+
+    public async Task ExpectThrow(string cmd, Func<string, bool> recognizer, int timeoutMs)
+    {
+        var b = await Expect(cmd, recognizer, timeoutMs);
+        if (!b) throw new Exception($"No response from {cmd}");
+    }
+
+
 }

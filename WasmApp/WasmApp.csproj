@@ -23,6 +23,8 @@
 		<PackageReference Include="B.NN.Math" Version="10.0.2" />-->
 
 		<PackageReference Include="B.NA.Terminal" Version="10.0.31" />
+
+		<PackageReference Include="B.NN.Observables" Version="10.0.2" />
 	</ItemGroup>
 	
 </Project>
