@@ -65,12 +65,16 @@ class PanelStatusBar : UiGroup<DockPanel>
 
 
 
-        btn("Scan").WithTooltip("Scan for 30s").AddTo(sp).WithClickEx(async () =>
+        btn("Scan")
+           // .WithTooltip("Scan for 30s")
+            .AddTo(sp).WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+GAPSCAN=30");
         });
 
-        btn("Stop").WithTooltip("Send Ctrl+C (attempt to cancel scan)").AddTo(sp).WithClickEx(async () =>
+        btn("Stop")
+           // .WithTooltip("Send Ctrl+C (attempt to cancel scan)")
+            .AddTo(sp).WithClickEx(async () =>
         {
            // "send Ctrl-C".Log();
             await Sequences.SenCtrlC();
@@ -86,34 +90,46 @@ class PanelStatusBar : UiGroup<DockPanel>
 
 
 
-        btn("Get").AddTo(sp).WithTooltip("Get security level").WithClickEx(async () =>
+        btn("Get").AddTo(sp)
+           // .WithTooltip("Get security level")
+            .WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+SECLVL");
         });
 
-        btn("Set 1").AddTo(sp).WithTooltip("Set security level to 1").WithClickEx(async () =>
+        btn("Set 1").AddTo(sp)
+            //.WithTooltip("Set security level to 1")
+            .WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+SECLVL=1");
         });
 
-        btn("Set 4").AddTo(sp).WithTooltip("Set security level to 4").WithClickEx(async () =>
+        btn("Set 4").AddTo(sp)
+            //.WithTooltip("Set security level to 4")
+            .WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+SECLVL=4");
         });
 
         sp = buttonGroup("Info");
 
-        btn("ATI").AddTo(sp).WithTooltip("Get dongle info").WithClickEx(async () =>
+        btn("ATI").AddTo(sp)
+            //.WithTooltip("Get dongle info")
+            .WithClickEx(async () =>
         {
             await Sequences.RunCommands("ATI");
         });
 
-        btn("GETCONN").AddTo(sp).WithTooltip("Get connection info").WithClickEx(async () =>
+        btn("GETCONN").AddTo(sp)
+            //.WithTooltip("Get connection info")
+            .WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+GETCONN");
         });
 
-        btn("GETBOND").AddTo(sp).WithTooltip("Get bond info").WithClickEx(async () =>
+        btn("GETBOND").AddTo(sp)
+            //.WithTooltip("Get bond info")
+            .WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+GETBOND");
         });
