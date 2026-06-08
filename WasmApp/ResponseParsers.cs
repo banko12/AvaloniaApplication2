@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ROSC = System.ReadOnlySpan<char>;
 
-
 namespace BH.BleuIO;
-
 
 /// <summary>
 /// A collection of parsers for the most often used responses, suc as Connect, notifications, etc
@@ -38,7 +36,6 @@ public static class ResponseParsers
         }
     }
 
-
     /// <summary>
     /// When parsing the response to ATV1, the dongle could have been in ATV0
     /// so we need to be prepared to parse either a verbose or non-verbose reply.
@@ -67,7 +64,6 @@ public static class ResponseParsers
         }
     }
 
-
     /// <summary>
     /// Check if the response is a result , i.e of the kind 
     /// {"A":74,"err":0,"errMsg":"ok"}
@@ -90,13 +86,11 @@ public static class ResponseParsers
         }
     }
 
-
     public static bool IsBonded(ROSC ln)
     {
         bool pairCompleted = false, bonded=false, mitm=false;
 
         BleuParser.ParseObject(ln, f);
-
 
         return pairCompleted && bonded;
 
@@ -108,9 +102,6 @@ public static class ResponseParsers
         }
 
     }
-
-
-
 
     public static Func<string,bool> LineHasValues(params (string name, string value)[] pattern) 
     {
@@ -145,8 +136,6 @@ public static class ResponseParsers
 
     }
 
-
-
     public static bool IsSecureConnected(ROSC ln)
     {
         bool secLevelSet = false;
@@ -159,7 +148,6 @@ public static class ResponseParsers
             if (name is "secLvl" && value is "4") secLevelSet =true;
         }
     }
-
 
     public static bool IsConnected(ROSC ln, out bool wasAlreadyConnected)
     {

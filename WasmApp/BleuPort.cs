@@ -67,7 +67,6 @@ sealed class BleuPort:IDisposable
         Accumulate(textChunk);
     }
 
-
     private void Accumulate(string s)
     {
 #if UARTDEBUG
@@ -95,13 +94,11 @@ sealed class BleuPort:IDisposable
         }
     }
 
-
     readonly byte[] ctrlc = [0x03];
     public async Task  SendCtrlC()
     {
         await WebSerial.Current.WriteAsync(ctrlc);
     }
-
 
     public async Task Send(string data)
     {
@@ -139,8 +136,6 @@ sealed class BleuPort:IDisposable
         return Disposable.Create(() => d.Dispose());
     });
 
-
-
     public async Task<bool> Expect(string cmd, Func<string, bool> recognizer, int timeoutMs)
     {
         var r = await
@@ -158,6 +153,5 @@ sealed class BleuPort:IDisposable
         var b = await Expect(cmd, recognizer, timeoutMs);
         if (!b) throw new Exception($"No response from {cmd}");
     }
-
 
 }

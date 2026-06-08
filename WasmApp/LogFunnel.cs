@@ -1,6 +1,5 @@
 ﻿using B;
 
-
 using System;
 using System.Reactive.Subjects;
 using System.Threading;
@@ -25,7 +24,6 @@ public sealed class LogFunnel : IDisposable
     public IObservable<string> Observable => subj;
 
     readonly Channel<string> channel;
-
 
     int isEnabled = 1;
 

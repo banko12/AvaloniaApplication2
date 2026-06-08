@@ -10,7 +10,6 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using static B.ShortColours;
 
-
 namespace AvaloniaApplication2;
 
 static class AppUi
@@ -32,7 +31,6 @@ static class AppUi
         return x;
     }
 
-
     public static async Task Build(ContentControl cc)
     {
         cc.WithDisposeManager(out var dm);
@@ -41,22 +39,13 @@ static class AppUi
         var statusPanelPlaceholder = new ContentControl().AddBottom(dp);
 
         var sp = uin.StackPanel(width: 180).AddRight(dp);
-       // ui.LoggerWithCopyAndClear().Width(300).SetGlobalLogger().AddRight(dp);
-
-
-  
-
 
         port = new BleuPort().DisposedBy(dm);
-
 
         Sequences.SetApi(port);
         LogFunnel = new LogFunnel().DisposedBy(dm);
 
         panelDongleTerminal = new PanelDongleTerminal().AddTo(dp);
-
-      //  panelDongleTerminal.Terminal.Log(Data.Sample);
-
 
         LogFunnel.Observable
             .ObserveOnUi()
@@ -67,8 +56,6 @@ static class AppUi
         port.IncomingLines.Merge(port.Outgoing)
             .Subscribe(line => line.TLog())
             .DisposedBy(dm);
-
-
 
         panelDongleTerminal.Terminal.Lines
             .Subscribe(async cmd =>
@@ -99,9 +86,7 @@ static class AppUi
             {
                 $"Error during port initialization: {ex.Message}".TLogComment();
 
-
             }
-
 
             panelDongleTerminal.Terminal.ScheduleFocus(afterMs: 100);
 
@@ -113,30 +98,9 @@ static class AppUi
             "Port closed".TLogComment(); 
         });
 
-
-        //Btn btn(string s) => ui.Btn(s).WithProps(new
-        //{
-        //    CornerRadius = 3,
-        //    Width = 70
-        //});
-
-        //var sp2 = Ui.StackPanel().PlaceInside(new Header("Commands").AddTo(sp));
-
-
-        //btn("ATI").AddTo(sp2).WithClickEx(async () =>
-        //{
-        //    await port.Send("ATI");
-        //});
-
-
-
         var statusBar = new PanelStatusBar().PlaceInside(statusPanelPlaceholder);
 
-
-
-
     }
-
 
     static async Task Init(BleuPort bport)
     {

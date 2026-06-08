@@ -32,7 +32,6 @@ public static class HexString
         return number;
     }
 
-
     public static byte[] ToBytes(ROSC x)
     {
         var n = x.Length / 2;

@@ -23,7 +23,6 @@ public ref struct SpanStringParser(ROSC x)
         return chunk;
     }
 
-
     /// <summary>
     /// Take until encountering the first delimiter, then skip all following delimiters
     /// </summary>
@@ -33,7 +32,6 @@ public ref struct SpanStringParser(ROSC x)
         TakeUntil(cs);  
         SkipWhile(cs);
     }
-
 
     /// <summary>
     /// Take until encountering the first delimiter, or the end of span.
@@ -94,7 +92,6 @@ public ref struct SpanStringParser(ROSC x)
         return chunk;
     }
 
-
     /// <summary>
     /// Take n characters into the out span. If there aren't enouch characters,
     /// return false, with the out span empty
@@ -111,7 +108,6 @@ public ref struct SpanStringParser(ROSC x)
         buffer = buffer[n..];
         return true;
     }
-
 
     public bool Skip(int n)
     {

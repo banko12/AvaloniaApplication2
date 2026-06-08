@@ -1,7 +1,6 @@
 ﻿using System;
 using ROSC = System.ReadOnlySpan<char>;
 
-
 namespace BH.BleuIO;
 
 public delegate void VParser(ROSC name, ROSC value);
@@ -25,8 +24,6 @@ public static class BleuParser
 
         return false;
     }
-
-
 
     public static bool ParseObjectContent(ROSC p, VParser vp)
     {
@@ -53,7 +50,6 @@ public static class BleuParser
                 //throw new Exception("expected ':' ; didn't get it");
             }
  
-
 
             if (sp.buffer[0] == '{')
             {
@@ -101,8 +97,6 @@ public static class BleuParser
         return true;
     }
 
-
-
     /// <summary>
     /// Called after encoutering an open brace {  with the argument equal to the remainder of the string
     /// after the opening brace. The string may contain other opening braces. Returns the index of the 
@@ -129,7 +123,6 @@ public static class BleuParser
 
         return -1;
     }
-
 
     static bool TakeQuotedName(this ref SpanStringParser sp, out ROSC name)
     {
@@ -166,8 +159,6 @@ public static class BleuParser
         return true;
     }
 
-
-
     public static bool TakeName(this ref SpanStringParser sp, out ROSC name)
     {
 
@@ -183,7 +174,6 @@ public static class BleuParser
         }
 
     }
-
 
     public static bool SkipToValue(this ref SpanStringParser sp)
     {

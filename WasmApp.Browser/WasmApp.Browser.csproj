@@ -1,21 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.WebAssembly">
-  <PropertyGroup>
-    <TargetFramework>net10.0-browser</TargetFramework>
-    <OutputType>Exe</OutputType>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Nullable>enable</Nullable>
-    
-    <!-- Add these for WASM deployment -->
+	<PropertyGroup>
+		<TargetFramework>net10.0-browser</TargetFramework>
+		<OutputType>Exe</OutputType>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+		<Nullable>enable</Nullable>
+
+		<!-- Add these for WASM deployment -->
+		<!--
     <RunAOTCompilation>false</RunAOTCompilation>
     <WasmStripILAfterAOT>false</WasmStripILAfterAOT>
-    <InvariantGlobalization>false</InvariantGlobalization>
-  </PropertyGroup>
+    <InvariantGlobalization>false</InvariantGlobalization>-->
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Avalonia.Browser" Version="12.0.4" />
-  </ItemGroup>
+	<PropertyGroup>
+		<RunAOTCompilation>true</RunAOTCompilation>
+		<WasmStripILAfterAOT>true</WasmStripILAfterAOT>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\WasmApp\WasmApp.csproj" />
-  </ItemGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia.Browser" Version="12.0.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\WasmApp\WasmApp.csproj" />
+	</ItemGroup>
 </Project>

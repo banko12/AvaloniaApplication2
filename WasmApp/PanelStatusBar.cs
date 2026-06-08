@@ -1,26 +1,17 @@
 ﻿
 using Avalonia.Controls;
-using B;
-
-using B.Ux;
-using B.NA.App.Facade;
-
-
-using static B.ShortColours;
 using Avalonia.Layout;
-using System.Threading.Tasks;
+using B;
+using B.NA.App.Facade;
+using B.Ux;
+using static B.ShortColours;
 
 namespace BtkApp;
-
-
 
 class PanelStatusBar : UiGroup<DockPanel>
 {
     public PanelStatusBar()
     {
-       // var api = App.Dongle;
-       
-
         Btn btn(string s) => ui.Btn(s).WithProps(new{
             CornerRadius=3,
             Width=70 
@@ -41,100 +32,55 @@ class PanelStatusBar : UiGroup<DockPanel>
             .WithShadow(opacity:0.15)
             .Margin(10)
             .GapTop(-5)
-           // .Margin(0).GapLeft(5).GapRight(5)
             .AddLeft(root);
             var sp = new StackPanel() { Orientation = Orientation.Horizontal }.PlaceInside(bd);
-
             uin.LabelLeft(name).GapRight(5).GapLeft(5).AddTo(sp);
-
             return sp;
         }
 
         var sp = buttonGroup("Scan");
 
-        //var bd = new Border() 
-        //    { BorderBrush = bdc, 
-        //    CornerRadius = new System.Windows.CornerRadius(4), 
-        //    BorderThickness =new System.Windows.Thickness(1),
-        //   // Height=40 
-        //}
-        //    .Margin(10)
-        //    .AddLeft(root);
-
-        //var sp = new StackPanel() {  Orientation=Orientation.Horizontal}.PlaceInside(bd);
-
-
-
-        btn("Scan")
-           // .WithTooltip("Scan for 30s")
-            .AddTo(sp).WithClickEx(async () =>
+        btn("Scan").AddTo(sp).WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+GAPSCAN=30");
         });
 
-        btn("Stop")
-           // .WithTooltip("Send Ctrl+C (attempt to cancel scan)")
-            .AddTo(sp).WithClickEx(async () =>
-        {
-           // "send Ctrl-C".Log();
-            await Sequences.SenCtrlC();
-            //await Task.Delay(50);
-            //await Sequences.SenCtrlC();
-            //await Task.Delay(50);
-            //await Sequences.SenCtrlC();
-        });
-
-
+        btn("Stop").AddTo(sp).WithClickEx(Sequences.SenCtrlC);
 
         sp = buttonGroup("Security");
 
-
-
-        btn("Get").AddTo(sp)
-           // .WithTooltip("Get security level")
-            .WithClickEx(async () =>
+        btn("Get").AddTo(sp).WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+SECLVL");
         });
 
-        btn("Set 1").AddTo(sp)
-            //.WithTooltip("Set security level to 1")
-            .WithClickEx(async () =>
+        btn("Set 1").AddTo(sp).WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+SECLVL=1");
         });
 
-        btn("Set 4").AddTo(sp)
-            //.WithTooltip("Set security level to 4")
-            .WithClickEx(async () =>
+        btn("Set 4").AddTo(sp).WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+SECLVL=4");
         });
 
         sp = buttonGroup("Info");
 
-        btn("ATI").AddTo(sp)
-            //.WithTooltip("Get dongle info")
-            .WithClickEx(async () =>
+        btn("ATI").AddTo(sp).WithClickEx(async () =>
         {
             await Sequences.RunCommands("ATI");
         });
 
-        btn("GETCONN").AddTo(sp)
-            //.WithTooltip("Get connection info")
-            .WithClickEx(async () =>
+        btn("GETCONN").AddTo(sp).WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+GETCONN");
         });
 
-        btn("GETBOND").AddTo(sp)
-            //.WithTooltip("Get bond info")
-            .WithClickEx(async () =>
+        btn("GETBOND").AddTo(sp).WithClickEx(async () =>
         {
             await Sequences.RunCommands("AT+GETBOND");
         });
 
         root.Fill();
-
     }
 }
