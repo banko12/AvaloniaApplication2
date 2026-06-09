@@ -16,11 +16,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="B.NA.App" Version="10.0.78" />
-		<PackageReference Include="B.NA.Ux3" Version="10.0.42" />
-		<PackageReference Include="B.NA.Observables" Version="10.0.32" />
+		<PackageReference Include="B.NA.App" Version="10.0.79" />
+		<PackageReference Include="B.NA.Ux3" Version="10.0.43" />
+		<PackageReference Include="B.NA.Observables" Version="10.0.33" />
 		<PackageReference Include="B.NN.Observables" Version="10.0.2" />
-		<PackageReference Include="B.NA.Terminal" Version="10.0.31" />
+		<PackageReference Include="B.NA.Terminal" Version="10.0.32" />
 	</ItemGroup>
 
 </Project>

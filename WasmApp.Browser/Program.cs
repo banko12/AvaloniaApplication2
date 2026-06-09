@@ -10,19 +10,26 @@ internal sealed partial class Program
     {
         WebSerial.SetCurrent(new BrowserWebSerial());
 
-        await GetBuilder()
+        var builder = AppBuilder.Configure<App>()
+                #if DEBUG
+                .WithDeveloperTools()
+                #endif
+                ;
+
+
+        await builder
         .StartBrowserAppAsync("out");  //the div id in index.html to mount the app to
 
     }
 
-    static AppBuilder GetBuilder()
-    { 
-        var builder =  AppBuilder.Configure<App>()
-                        #if DEBUG
-                        .WithDeveloperTools()
-                        #endif
-                        ;
+    //static AppBuilder GetBuilder()
+    //{ 
+    //    var builder =  AppBuilder.Configure<App>()
+    //                    #if DEBUG
+    //                    .WithDeveloperTools()
+    //                    #endif
+    //                    ;
 
-        return builder;
-    }
+    //    return builder;
+    //}
 }
