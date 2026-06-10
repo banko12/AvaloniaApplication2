@@ -1,6 +1,6 @@
 {
     "profiles": {
-    "AvaloniaApplication2.Browser": {
+    "WebTerm.Wasm": {
         "commandName": "Project",
         "launchBrowser": true,
         "environmentVariables": {

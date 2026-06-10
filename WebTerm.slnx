@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="WebTerm.Wasm/WebTerm.Wasm.csproj" />
+  <Project Path="WebTerm/WebTerm.csproj" />
+</Solution>
