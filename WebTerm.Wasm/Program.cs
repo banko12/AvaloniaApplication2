@@ -21,15 +21,4 @@ internal sealed partial class Program
         .StartBrowserAppAsync("out");  //the div id in index.html to mount the app to
 
     }
-
-    //static AppBuilder GetBuilder()
-    //{ 
-    //    var builder =  AppBuilder.Configure<App>()
-    //                    #if DEBUG
-    //                    .WithDeveloperTools()
-    //                    #endif
-    //                    ;
-
-    //    return builder;
-    //}
 }
